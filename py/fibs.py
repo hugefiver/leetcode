@@ -29,5 +29,6 @@ class CachedIter:
 def fibs(n):
     def baz(iter):
         chain([1, 1], starmap(lambda x, y: x + y, zip(iter, islice(iter, 1, None))))
-    i = CachedIter(baz(i)) # ...
+    # cannot execute
+    i = CachedIter(baz(i))
     list(islice(i, n))
