@@ -62,7 +62,7 @@ impl RegularExp {
 
         if let Some(i) = Self::match_group(s, 0, &self.matcher) {
             i == s.len()
-        }else {
+        } else {
             false
         }
     }
@@ -83,7 +83,7 @@ impl RegularExp {
                         }
                     }
                     ret
-                }, 
+                }
                 _ => None,
             };
         }
@@ -96,7 +96,7 @@ impl RegularExp {
                 } else {
                     None
                 }
-            },
+            }
             Group(g) => Self::match_group(s, from, g),
             Star(g) => Self::match_star(s, from, g),
         }
