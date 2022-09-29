@@ -15,3 +15,20 @@ def lcs(s1, s2):
             return x
         else:
             return y
+
+def lcs(s1, s2):
+    @cache
+    def baz(i, j):
+        if len(s1) == i or len(s2) == j:
+            return ""
+
+        if s1[i] == s2[j]:
+            return s1[i] + baz(i+1, j+1)
+        else:
+            x = baz(i+1, j)
+            y = baz(i, j+1)
+            if len(x) > len(y):
+                return x
+            else:
+                return y
+    return baz(0, 0)
