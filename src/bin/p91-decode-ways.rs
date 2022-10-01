@@ -50,7 +50,7 @@ impl Solution {
                 (1, 1..=9) | (2, 1..=6) => {
                     dp[0] = 1;
                     dp[1] = 2;
-                },
+                }
                 (_, 1..=9) => {
                     dp[0] = 1;
                     dp[1] = 1;
@@ -58,8 +58,8 @@ impl Solution {
                 (1..=2, 0) => {
                     dp[0] = 1;
                     dp[1] = 1;
-                },
-                _ => {},
+                }
+                _ => {}
             }
         }
 
@@ -80,6 +80,9 @@ struct Solution;
 fn main() {
     Solution::num_decodings_dp("2101".to_string());
     for s in ["12", "226", "910382283", "27", "2101"] {
-        assert_eq!(Solution::num_decodings(s.to_string()), Solution::num_decodings_dp(s.to_string()));
+        assert_eq!(
+            Solution::num_decodings(s.to_string()),
+            Solution::num_decodings_dp(s.to_string())
+        );
     }
 }
