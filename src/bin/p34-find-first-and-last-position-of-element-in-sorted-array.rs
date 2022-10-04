@@ -19,14 +19,35 @@ impl Solution {
             }
         }
 
-        if nums[mid] != target {
-            mid = if nums[ll] == target {
-                ll
-            } else if nums[rr] == target {
-                rr
-            } else {
-                return vec![-1, -1];
-            };
+        // if nums[mid] != target {
+        //     mid = if nums[ll] == target {
+        //         ll
+        //     } else if nums[rr] == target {
+        //         rr
+        //     } else {
+        //         return vec![-1, -1];
+        //     };
+        // }
+
+        match rr - ll {
+            0 => {
+                return if nums[ll] == target {
+                    vec![ll as i32, ll as i32]
+                } else {
+                    vec![-1, -1]
+                }
+            }
+            1 => {
+                let (l, r) = (ll as i32, rr as i32);
+                let (x, y) = match (nums[ll], nums[rr]) {
+                    (x, y) if x == target && y == target => (l, r),
+                    (x, _) if x == target => (l, l),
+                    (_, x) if x == target => (r, r),
+                    _ => (-1, -1),
+                };
+                return vec![x, y];
+            }
+            _ => {}
         }
 
         if nums[mid] == target || nums[ll] == target || nums[rr] == target {
@@ -73,6 +94,7 @@ fn main() {
         (vec![1, 1, 1, 1], 1),
         (vec![1, 2, 3, 3, 3], 3),
         (vec![1, 4], 4),
+        (vec![1, 2, 4], 4),
     ] {
         assert_eq!(Solution::search_range(arr.clone(), t), search_range(arr, t));
     }
