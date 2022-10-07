@@ -2,14 +2,14 @@ use std::collections::BTreeMap;
 
 #[derive(Default)]
 struct MyCalendarThree {
-    tree: BTreeMap<i32, i32>
+    tree: BTreeMap<i32, i32>,
 }
 
 impl MyCalendarThree {
     fn new() -> Self {
         Default::default()
     }
-    
+
     fn book(&mut self, start: i32, end: i32) -> i32 {
         *self.tree.entry(start).or_insert(0) += 1;
         *self.tree.entry(end).or_insert(0) -= 1;
