@@ -106,3 +106,10 @@ impl MyCalendarThree {
         self.seg[self.root]
     }
 }
+
+fn main(){
+    let mut c = MyCalendarThree::new();
+    for (x, y) in [(10, 20), (50, 60), (10, 40), (5, 15), (5, 10), (25, 55)] {
+        println!("[{}, {}) => {}", x, y, c.book(x, y));
+    }
+}
