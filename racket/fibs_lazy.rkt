@@ -28,5 +28,5 @@
               (cons (op a1 a2)
                     (delay (map_lazy op (cdr l1) (cdr l2)))))])))
 
-(letrec [(fibs (lazy (lazy_cons 1 (lazy_cons 1 (map_lazy + fibs (cdr (force fibs)))))))]
+(letrec [(fibs (lazy (lazy_cons 1 (lazy_cons 1 (map_lazy + fibs (lazy (cdr (force fibs))))))))]
   (take_lazy 10 fibs))
