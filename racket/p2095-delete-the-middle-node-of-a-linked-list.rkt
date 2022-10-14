@@ -10,18 +10,21 @@
   (list-node val #f))
 
 
-;; need pass argument as reference
-(define/contract (travel! root n)
-  (-> (or/c list-node? #f) integer? integer?)
+(define/contract (travel root n)
+  (-> (or/c list-node? #f) integer? (or/c integer? list-node?))
   (match root
     [#f (quotient (n . + . 1) 2)]
-    [node (let [(r (travel! (list-node-next node) (+ n 1)))]
-            (case r
-              ['(0) ((set-list-node-next!
-                      node
-                      (list-node-next (list-node-next node)))
-                     -1)]
-              [else (- r 1)]
+    [node (let [(r (travel (list-node-next node) (+ n 1)))]
+            (match r
+              [0 (let ()
+                      (set-list-node-next!
+                       node
+                       (list-node-next (list-node-next node)))
+                      node)]
+              [(? integer? x) (- r 1)]
+              [else (let ()
+                      (set-list-node-next! node r)
+                      node)]
               ))]
     ))
 
@@ -29,7 +32,7 @@
   (-> (or/c list-node? #f) (or/c list-node? #f))
   (if (false? (list-node-next head))
       #f
-      (let ()
-        (travel! head 0)
-        head)
+      (match (travel head 0)
+        [(? list-node? x) x]
+        [else #f])
       ))
