@@ -8,6 +8,14 @@ impl Solution {
 
     fn foo(jobs: Vec<i32>, d: i32) -> i32 {
         let mut dp = vec![vec![-1; jobs.len()]; d as usize];
+        let mut dp_max = vec![vec![0; jobs.len()]; jobs.len()];
+        for i in 0..jobs.len() {
+            dp_max[i][i] = jobs[i];
+            for j in i + 1..jobs.len() {
+                dp_max[i][j] = dp_max[i][j - 1].max(jobs[j]);
+            }
+        }
+
         dp[0] = jobs.iter().fold(Vec::new(), |mut acc, &x| {
             if let Some(&last) = acc.last() {
                 acc.push(x.max(last));
@@ -23,7 +31,8 @@ impl Solution {
                 } else {
                     dp[i][j] = (i..=j)
                         .map(|idx| {
-                            dp[i - 1][idx - 1] + jobs[idx..=j].iter().max().unwrap_or(&0)
+                            // dp[i - 1][idx - 1] + jobs[idx..=j].iter().max().unwrap_or(&0)
+                            dp[i - 1][idx - 1] + dp_max[idx][j]
                         })
                         .min()
                         .unwrap();
