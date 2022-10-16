@@ -11,7 +11,7 @@
 
 
 (define/contract (travel root n)
-  (-> (or/c list-node? #f) integer? (or/c integer? list-node?))
+  (-> (or/c list-node? #f) (and/c integer? (>=/c 0)) (or/c integer? list-node?))
   (match root
     [#f (quotient (n . + . 1) 2)]
     [node (let [(r (travel (list-node-next node) (+ n 1)))]
