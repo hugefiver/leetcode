@@ -17,10 +17,10 @@
     [node (let [(r (travel (list-node-next node) (+ n 1)))]
             (match r
               [0 (let ()
-                      (set-list-node-next!
-                       node
-                       (list-node-next (list-node-next node)))
-                      node)]
+                   (set-list-node-next!
+                    node
+                    (list-node-next (list-node-next node)))
+                   node)]
               [(? integer? x) (- r 1)]
               [else (let ()
                       (set-list-node-next! node r)
