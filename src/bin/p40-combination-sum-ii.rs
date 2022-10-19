@@ -14,9 +14,9 @@ impl Solution {
             } else if last.is_some() && n == last.unwrap() {
                 continue;
             } else if n < target {
-                if i == arr.len() - 1{
-                    break;
-                }
+                // if i == arr.len() - 1{
+                //     break;
+                // }
                 let mut rr = Self::foo(&arr[i+1..], target - n);
                 if !rr.is_empty() {
                     rr.iter_mut().for_each(|x| x.push(n));
