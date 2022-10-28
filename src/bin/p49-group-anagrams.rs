@@ -13,7 +13,7 @@ impl Solution {
             v.push(s);
             acc
         });
-        xs.into_iter().map(|(_, v)| v).collect()
+        xs.into_values().collect()
     }
 }
 
